@@ -1,21 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
+import Results from "./Results";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            data : []
+        }
+        this.getInfo = this.getInfo.bind(this);
+    }
+
+    getInfo(){
+        fetch("/API/food/rice")
+            .then((res)=>{
+                return res.json();
+            })
+            .then((data)=>{
+                this.setState({data:data});
+            })
+            .catch((err)=> console.log(err));
+    }
+
+    render() {
+        return (
+            <div className="App container-fluid">
+                <h1>Welcome to the Boilerplate</h1>
+                <button onClick={()=>this.getInfo()}>GET INFO</button>
+                <Results data={this.state.data}/>
+            </div>
+        );
+    }
 }
 
 export default App;
