@@ -25,16 +25,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 //External API Example
-app.get("/API/food/:name", function (req, res) {
+app.get("/API/frequent/:hashtag", function (req, res) {
     // CALL API HERE
-    request("https://api.nal.usda.gov/ndb/search/?format=json&q=" + req.params.name + "&max=25&offset=0&api_key=hLowbDVqOU42auJEBrZPL8tGUSbGd5ok91ficFr3",
+    request("https://www.instagram.com/explore/tags/"+req.params.hashtag+"/?__a=1",
         function (error, response, body) {
             if (error) {
                 console.log(error);
             }
             if (!error && response.statusCode == 200) {
-                if (JSON.parse(body).list) {
-                    res.send(JSON.parse(body).list.item);
+                if (JSON.parse(body)) {
+                    let top = JSON.parse(body);
+                    res.send(top.graphql.hashtag.edge_hashtag_to_top_posts);
                 }
                 else {
                     res.send([]);

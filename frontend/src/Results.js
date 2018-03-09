@@ -6,9 +6,13 @@ export default class Results extends Component{
     render(){
         let data = this.props.data;
         let results = [];
-        data.forEach((d)=>{
-           results.push(<div className="col-3">{d.name}</div>);
-        });
+
+        for(let d of data){
+            results.push(
+                <div key={d.node.display_url} className="col-3">
+                    <img src={d.node.display_url} alt={d.node.display_url}/>
+    </div>);
+    }
 
         return(
             <div className="row">
