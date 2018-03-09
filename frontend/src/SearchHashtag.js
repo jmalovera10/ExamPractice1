@@ -11,9 +11,8 @@ export default class SearchHashtag extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleTextChange(e) {
-        this.props.onTextChange(e.target.value);
-
+    handleTextChange(event) {
+        this.props.onTextChange(event.target.value);
     }
 
     handleSubmit = event => {
@@ -28,7 +27,7 @@ export default class SearchHashtag extends Component {
                     <FormGroup controlId="search" bsSize="large">
                         <ControlLabel className="auth-text">Which hashtag would you want to search?</ControlLabel>
                         <FormControl
-                            onChange={this.props.handleTextChange}
+                            onChange={this.handleTextChange}
                             type="search"
                         />
                     </FormGroup>
