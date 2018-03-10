@@ -10,7 +10,7 @@ const MongoClient = require("mongodb").MongoClient;
 
 const app = express();
 
-const DB_URL = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const DB_URL = process.env.MONGOLAB_URI || "mongodb://localhost:27017";
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
