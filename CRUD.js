@@ -44,7 +44,7 @@ exports.getFrequentSearches = (db, callback)=>{
     const dbm = db.db("historic_searches");
     let collection = dbm.collection("searches");
     try{
-        collection.find().sort({search: -1}).toArray((err,result)=>{
+        collection.find().sort({search: -1}).limit(10).toArray((err,result)=>{
             assert.equal(err,null);
             console.log("Searches found");
             console.log(result);

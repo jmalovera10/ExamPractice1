@@ -17,6 +17,7 @@ class App extends Component {
         this.getInfo = this.getInfo.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.getFrequentSearches = this.getFrequentSearches.bind(this);
+        this.getFrequentSearches();
     }
 
     getInfo() {
@@ -26,6 +27,7 @@ class App extends Component {
             })
             .then((data) => {
                 this.setState({data: data.edges});
+                this.getFrequentSearches();
             })
             .catch((err) => console.log(err));
     }
@@ -36,7 +38,7 @@ class App extends Component {
                 return res.json();
             })
             .then((data) => {
-                this.setState({searches: data.search});
+                this.setState({searches: data});
             })
             .catch((err) => console.log(err));
     }

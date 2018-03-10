@@ -10,13 +10,16 @@ export default class TopSearches extends Component {
 
         for (let d of data) {
             results.push(
-                <div className="col-4">
-
+                <div key={d.search} className="col-12">
+                    <h3>{d.search+": "+d.count}</h3>
                 </div>);
         }
         return (
             <div className="row">
-
+                <div className="col-12">
+                    <h1>Top Searches</h1>
+                </div>
+                {results}
             </div>
         );
     }
