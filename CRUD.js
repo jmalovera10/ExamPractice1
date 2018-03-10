@@ -40,6 +40,18 @@ exports.insertSearch = (db, callback, search)=>{
 }
 
 //CRUD method that returns the most frequent searches
-exports.getFrequentSearches = (db, callback, search)=>{
-
+exports.getFrequentSearches = (db, callback)=>{
+    const dbm = db.db("historic_searches");
+    let collection = dbm.collection("searches");
+    try{
+        collection.find().sort({search: -1}).toArray((err,result)=>{
+            assert.equal(err,null);
+            console.log("Searches found");
+            console.log(result);
+            callback(result);
+        });
+    }catch (err){
+        console.log(error);
+        callback(err);
+    }
 }
