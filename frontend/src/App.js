@@ -76,7 +76,7 @@ class App extends Component {
         let history = this.state.history;
         return (
             <div className="App container-fluid">
-                <h1>Let's see which IG hashtag is frequent!</h1>
+                <h1>Let's see which IG hashtag is frequent with the one you choose!</h1>
                 <SearchHashtag onChange={this.getInfo} onTextChange={this.onTextChange}
                                searchValue={this.state.searchValue}/>
                 <div className="row justify-content-around app-content">
