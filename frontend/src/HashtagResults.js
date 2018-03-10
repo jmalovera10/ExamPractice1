@@ -41,7 +41,7 @@ export default class HashtagResults extends Component {
             for (let val of top) {
                 if (i >= 10) break;
                 results.push(
-                    <div key={val[0]} className="col-12">
+                    <div key={val[0]} className="list-group-item">
                         <h4>{val[0] + ": " + val[1]}</h4>
                     </div>
                 );
@@ -54,17 +54,18 @@ export default class HashtagResults extends Component {
     render() {
         let data = this.props.data;
         let results = this.calculateFrequence(data);
-        let title = null;
-        if (results !== []) {
-            title = (<h1>Here are the constant paired hashtags</h1>);
-        }
 
         return (
-            <div className="row">
-                <div className="col-12">
-                    {title}
+            <div className="row results-all">
+                <div className="card col-12 card-top">
+                    <div className="card-header bg-info">
+                        <h2>Frequently paired hashtags</h2>
+                    </div>
+                    <ul className="list-group list-group-flush top-searches">
+                        {results}
+                    </ul>
                 </div>
-                {results}
+
             </div>
         );
     }

@@ -15,7 +15,7 @@ export default class ImageResults extends Component {
                 </div>);
         }
         return (
-            <div className="row result-content">
+            <div className="row">
                 {results}
             </div>
         );

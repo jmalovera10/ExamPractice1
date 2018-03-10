@@ -12,7 +12,8 @@ class App extends Component {
         this.state = {
             searchValue: null,
             data: [],
-            searches : []
+            searches: [],
+            history: []
         }
         this.getInfo = this.getInfo.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
@@ -26,13 +27,15 @@ class App extends Component {
                 return res.json();
             })
             .then((data) => {
-                this.setState({data: data.edges});
+                let history = this.state.history.slice();
+                history.push(this.state.searchValue);
+                this.setState({data: data.edges, history: history});
                 this.getFrequentSearches();
             })
             .catch((err) => console.log(err));
     }
 
-    getFrequentSearches(){
+    getFrequentSearches() {
         fetch("/API/frequent_searches")
             .then((res) => {
                 return res.json();
@@ -52,10 +55,10 @@ class App extends Component {
     render() {
         return (
             <div className="App container-fluid">
-                <h1>Lets see which IG hashtag is common!</h1>
+                <h1>Let's see which IG hashtag is frequent!</h1>
                 <SearchHashtag onChange={this.getInfo} onTextChange={this.onTextChange}
                                searchValue={this.state.searchValue}/>
-                <div className="row justify-content-around">
+                <div className="row justify-content-around app-content">
                     <div className="col-9">
                         <ImageResults data={this.state.data}/>
                     </div>

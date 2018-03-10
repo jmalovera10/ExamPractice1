@@ -25,7 +25,7 @@ export default class SearchHashtag extends Component {
             <div className="row justify-content-around">
                 <form onSubmit={this.handleSubmit} className="col-6 center-items">
                     <FormGroup controlId="search" bsSize="large">
-                        <ControlLabel className="auth-text">Which hashtag would you want to search?</ControlLabel>
+                        <ControlLabel className="auth-text">Which hashtag would you like to search?</ControlLabel>
                         <FormControl
                             onChange={this.handleTextChange}
                             type="search"

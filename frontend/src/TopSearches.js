@@ -10,16 +10,20 @@ export default class TopSearches extends Component {
 
         for (let d of data) {
             results.push(
-                <div key={d.search} className="col-12">
-                    <h3>{d.search+": "+d.count}</h3>
-                </div>);
+                <li key={d.search} className="list-group-item">
+                    <h4>{d.search+": "+d.count}</h4>
+                </li>);
         }
         return (
-            <div className="row">
-                <div className="col-12">
-                    <h1>Top Searches</h1>
+            <div className="row top-all">
+                <div className="card col-12 card-top">
+                    <div className="card-header bg-info">
+                        <h2>Top Searches</h2>
+                    </div>
+                    <ul className="list-group list-group-flush top-searches">
+                        {results}
+                    </ul>
                 </div>
-                {results}
             </div>
         );
     }

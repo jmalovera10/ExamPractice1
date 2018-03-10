@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding-top: 3%;
 }
 
 .App-logo {
@@ -22,7 +23,6 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.app-content{
+  padding: 5%;
 }
