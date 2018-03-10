@@ -64,7 +64,7 @@ app.get("/API/frequent_searches", (req, res) => {
             res.send(result);
         });
     });
-}
+});
 
 
 // catch 404 and forward to error handler
