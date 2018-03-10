@@ -4,16 +4,19 @@ import './App.css';
 import ImageResults from "./ImageResults";
 import SearchHashtag from "./SearchHashtag";
 import HashtagResults from "./HashtagResults";
+import TopSearches from "./TopSearches";
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             searchValue: null,
-            data: []
+            data: [],
+            searches : []
         }
         this.getInfo = this.getInfo.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
+        this.getFrequentSearches = this.getFrequentSearches.bind(this);
     }
 
     getInfo() {
@@ -23,6 +26,17 @@ class App extends Component {
             })
             .then((data) => {
                 this.setState({data: data.edges});
+            })
+            .catch((err) => console.log(err));
+    }
+
+    getFrequentSearches(){
+        fetch("/API/frequent_searches")
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                this.setState({searches: data.search});
             })
             .catch((err) => console.log(err));
     }
@@ -45,6 +59,7 @@ class App extends Component {
                     </div>
                     <div className="col-3">
                         <HashtagResults data={this.state.data} searchValue={this.state.searchValue}/>
+                        <TopSearches data={this.state.searches}/>
                     </div>
                 </div>
 

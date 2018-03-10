@@ -10,7 +10,7 @@ const MongoClient = require("mongodb").MongoClient;
 
 const app = express();
 
-const DB_URL = process.env.MONGOLAB_URI || "mongodb://localhost:27017";
+const DB_URL = "mongodb+srv://jmalovera10:examen1webdev@cluster0-nbo5j.mongodb.net" || "mongodb://localhost:27017";
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 //External API Example
-app.get("/API/frequent/:hashtag", function (req, res) {
+app.get("/API/frequent/:hashtag", (req, res) => {
     // CALL API HERE
 
     request("https://www.instagram.com/explore/tags/"+req.params.hashtag+"/?__a=1",
@@ -53,6 +53,18 @@ app.get("/API/frequent/:hashtag", function (req, res) {
             }
         })
 });
+
+//Gets the most common searches made by users
+app.get("/API/frequent_searches", (req, res) => {
+    MongoClient.connect(DB_URL, function (err, db) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        CRUD.getFrequentSearches(db, (result) => {
+            db.close();
+            res.send(result);
+        });
+    });
+}
 
 
 // catch 404 and forward to error handler

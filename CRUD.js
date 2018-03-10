@@ -1,6 +1,7 @@
 const assert = require('assert');
 
-exports.insertSearch = function(db, callback, search){
+//CRUD method that inserts and updates the search frequency
+exports.insertSearch = (db, callback, search)=>{
     const dbm = db.db("historic_searches");
     let collection = dbm.collection("searches");
     try{
@@ -36,4 +37,9 @@ exports.insertSearch = function(db, callback, search){
                 callback(result);
             });
     }
+}
+
+//CRUD method that returns the most frequent searches
+exports.getFrequentSearches = (db, callback, search)=>{
+
 }
