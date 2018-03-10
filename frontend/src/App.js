@@ -5,6 +5,7 @@ import ImageResults from "./ImageResults";
 import SearchHashtag from "./SearchHashtag";
 import HashtagResults from "./HashtagResults";
 import TopSearches from "./TopSearches";
+import LastSearch from "./LastSearch";
 
 class App extends Component {
     constructor(props) {
@@ -18,11 +19,30 @@ class App extends Component {
         this.getInfo = this.getInfo.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.getFrequentSearches = this.getFrequentSearches.bind(this);
+        this.getPreviousInfo = this.getPreviousInfo.bind(this);
         this.getFrequentSearches();
     }
 
     getInfo() {
         fetch("/API/frequent/" + this.state.searchValue)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                let history = this.state.history.slice();
+                history.push(this.state.searchValue);
+                this.setState({data: data.edges, history: history});
+                this.getFrequentSearches();
+            })
+            .catch((err) => console.log(err));
+    }
+
+    getPreviousInfo(){
+        let history = this.state.history.slice();
+        history.pop()
+        let request = history.pop();
+        this.setState({history:history});
+        fetch("/API/frequent/" + request)
             .then((res) => {
                 return res.json();
             })
@@ -53,6 +73,7 @@ class App extends Component {
     }
 
     render() {
+        let history = this.state.history;
         return (
             <div className="App container-fluid">
                 <h1>Let's see which IG hashtag is frequent!</h1>
@@ -63,6 +84,7 @@ class App extends Component {
                         <ImageResults data={this.state.data}/>
                     </div>
                     <div className="col-3">
+                        <LastSearch value={history[history.length-2]} onClick={this.getPreviousInfo}/>
                         <HashtagResults data={this.state.data} searchValue={this.state.searchValue}/>
                         <TopSearches data={this.state.searches}/>
                     </div>
